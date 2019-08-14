@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>asdas</title>
+    <style>
+        .waveform {
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .canvas {
+            width: 100%;
+            height: 4rem;
+        }
+
+        }
+    </style>
+</head>
+<body>
+<p>Hello World</p>
+<p>STETHEE PRO = fe400b535445544845452050524f0d0a</p>
+<p>STP1 = fe4104535450310d0a</p>
+<p>421706003800 = fe420c3432313730363030333830300d0a</p>
+<p>[STP] My STP1 = fe430d5b5354505d204d7920535450310d0a</p>
+<p>1.2.010.0002 = fe440c312e322e3031302e303030320d0a</p>
+<p>1.2.01 = fe4506312e322e30310d0a</p>
+<p> state of operation --fe46024aaf0d0a</p>
+<p>Mac 02:4b:a5:28:f2:47: = fe4706024ba528f2470d0a</p>
+<p>Filter IDS = fe4809f0f1f2f3f4000000000d0a</p>
+<p>My Headset = fe490a4d7920486561647365740d0a</p>
+<ul></ul>
+
+<button onclick="record()">Record</button>
+<div>
+    <div class="waveform">
+        <canvas class="canvas"/>
+    </div>
+</div>
+
+</div>
+<p>Data from ipc</p>
+
+Results from bluetility
+<p id="data"></p>
+
+<br/>
+<h2>Write to</h2>
+<p>Set blueetooth name: fe834d7920535450310d0a</p>
+<input id='ops'/>
+<button onclick="getOps()">Get</button>
+<button onclick="setOps()">Set</button>
+<button>Event</button>
+<br/>
+<form id="test">
+    <p><input type="radio" name="type" value="0">Product Name </p>
+    <p><input type="radio" name="type" value="1">Product Model Number</p>
+    <p><input type="radio" name="type" value="2">Product Serial Number</p>
+    <p><input type="radio" name="type" value="3">Bluetooth name</p>
+    <p><input type="radio" name="type" value="4">Software Version</p>
+    <p><input type="radio" name="type" value="5">Hardware Version</p>
+    <p><input type="radio" name="type" value="7">Headset Mac Address</p>
+    <p><input type="radio" name="type" value="8">Filters ID</p>
+    <p><input type="radio" name="type" value="9">Headset Name</p>
+    <p><input type="radio" name="type" value="6">Operation</p>
+    <form id="mode-form">
+        <p>First byte construction options</p>
+        <blockquote>MODE:
+            <label><input type="radio" name="mode" value="01">01 - On</label>
+            <label><input type="radio" name="mode" value="00">00 - Off</label>
+            <label><input type="radio" name="mode" value="10">10 - Streaming</label>
+        </blockquote>
+        <blockquote>Battery:
+            <label><input type="radio" name="battery" value="0000">0000 - No Data</label>
+            <label><input type="radio" name="battery" value="0001">0001 - 1</label>
+            <label><input type="radio" name="battery" value="0010">0010 - 2</label>
+            <label><input type="radio" name="battery" value="0011">0011 - 5</label>
+            <label><input type="radio" name="battery" value="0100">0100 - 10</label>
+            <label><input type="radio" name="battery" value="0101">0101 - 15</label>
+            <label><input type="radio" name="battery" value="0110">0110 - 20</label>
+            <label><input type="radio" name="battery" value="0111">0111 - 25</label>
+            <label><input type="radio" name="battery" value="1000">1000 - 30</label>
+            <label><input type="radio" name="battery" value="1001">1001 - 40</label>
+            <label><input type="radio" name="battery" value="1010">1010 - 50</label>
+            <label><input type="radio" name="battery" value="1011">1011 - 60</label>
+            <label><input type="radio" name="battery" value="1100">1100 - 70</label>
+            <label><input type="radio" name="battery" value="1101">1101 - 80</label>
+            <label><input type="radio" name="battery" value="1110">1110 - 90</label>
+            <label><input type="radio" name="battery" value="1111">1111 - 100</label>
+        </blockquote>
+        <blockquote>Bluetooth Headset:
+            <label><input type="radio" name="hd" value="0">0 - not connected</label>
+            <label><input type="radio" name="hd" value="1">1 - connected</label>
+        </blockquote>
+        <blockquote> Auto connect:
+            <label><input type="radio" name="ac" value="0">0 - inactive</label>
+            <label><input type="radio" name="ac" value="1">1 - active</label>
+        </blockquote>
+        <hr/>
+        <p>Second byte construction options</p>
+        <blockquote>Filter number:
+            <label><input type="radio" name="fn" value="000">000 - pos 0</label>
+            <label><input type="radio" name="fn" value="001">001 - pos 1</label>
+            <label><input type="radio" name="fn" value="010">010 - pos 2</label>
+            <label><input type="radio" name="fn" value="011">011 - pos 3</label>
+            <label><input type="radio" name="fn" value="100">100 - pos 4</label>
+            <label><input type="radio" name="fn" value="101">101 - pos 5</label>
+            <label><input type="radio" name="fn" value="110">110 - pos 6</label>
+            <label><input type="radio" name="fn" value="111">111 - pos 7</label>
+        </blockquote>
+        <blockquote>Filter status:
+            <label><input type="radio" name="fs" value="1">Setting Filter Status</label>
+            <label><input type="radio" name="fs" value="0">Not setting filter status</label>
+        </blockquote>
+        <blockquote>Audio gain:
+            <label><input type="radio" name="ag" value="000">000 - 1</label>
+            <label><input type="radio" name="ag" value="001">001 - 2</label>
+            <label><input type="radio" name="ag" value="010">010 - 3</label>
+            <label><input type="radio" name="ag" value="011">011 - 4</label>
+            <label><input type="radio" name="ag" value="100">100 - 5</label>
+            <label><input type="radio" name="ag" value="101">101 - 6</label>
+            <label><input type="radio" name="ag" value="110">110 - 7</label>
+            <label><input type="radio" name="ag" value="111">111 - 8</label>
+        </blockquote>
+        <blockquote>Heartbeat locator:
+            <label><input type="radio" name="hbl" value="1">HBL active</label>
+            <label><input type="radio" name="hbl" value="0">HBL inactive</label>
+        </blockquote>
+    </form>
+
+</form>
+<script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+    const _ = require('lodash');
+    const list = document.querySelector('ul');
+    ipcRenderer.on('SCR:list', (event, todo) => {
+        for (const input of todo) {
+            const li = document.createElement('li');
+            const button = document.createElement('button');
+            const textNode = document.createTextNode(input)
+            selectNewInput(button, input)
+            button.append(textNode);
+            li.appendChild(button);
+            list.appendChild(li);
+        }
+    });
+
+    function selectNewInput(button, input) {
+        button.addEventListener('click', () => {
+            console.log('here', input)
+            ipcRenderer.send('SRC:select-new-input', input)
+        })
+    }
+
+    function convertBlock(incomingData) { // incoming data is a UInt8Array
+        var i, l = incomingData.length;
+        var outputData = new Float32Array(incomingData.length);
+        for (i = 0; i < l; i++) {
+            outputData[i] = (incomingData[i] - 128) / 128.0;
+        }
+        return outputData;
+    }
+
+    // We'll store the value of te bars we want to draw in here
+    const bars = []
+
+    // An instance of AudioContext
+    const audioContext = new AudioContext();
+
+    // This will become our input MediaStreamSourceNode
+    let input = null;
+
+    // This will become our AnalyserNode
+    let analyser = null;
+
+    // This will become our ScriptProcessorNode
+    let scriptProcessor = null;
+
+    // Canvas related variables
+    const barWidth = 2;
+    const barGutter = 2;
+    const barColor = "#49F1D5";
+
+    let canvas = null;
+    let canvasContext = null;
+    let width = 0;
+    let height = 0;
+    let halfHeight = 0;
+    let drawing = false;
+
+    /**
+     * Process the input of the ScriptProcessorNode.
+     *
+     * @param {audioProcessingEvent}
+     */
+    const processInput = audioProcessingEvent => {
+        // Create a new Uint8Array to store the analyser's frequencyBinCount
+        const tempArray = new Uint8Array(analyser.frequencyBinCount);
+        // Get the byte frequency data from our array
+        analyser.getByteFrequencyData(tempArray);
+
+        // Calculate the average volume and store that value in our bars Array
+        //console.log(tempArray)
+        bars.push(getAverageVolume(tempArray));
+
+        // Render the bars
+        renderBars(bars);
+    }
+
+    /**
+     * Calculate the average value from the supplied array.
+     *
+     * @param {Array<Int>}
+     */
+    const getAverageVolume = array => {
+        const length = array.length;
+        let values = 0;
+        let i = 0;
+
+        // Loop over the values of the array, and count them
+        for (; i < length; i++) {
+            values += array[i];
+        }
+//        console.log('a', values, length)
+        // Return the avarag
+        console.log('a?')
+        return values / length;
+    }
+
+    /**
+     * Render the bars.
+     */
+    const renderBars = () => {
+        if (!drawing) {
+            drawing = true;
+
+            window.requestAnimationFrame(() => {
+                canvasContext.clearRect(0, 0, width, height);
+
+                bars.forEach((bar, index) => {
+                    canvasContext.fillStyle = barColor;
+                    // Top part of the bar
+                    canvasContext.fillRect((index * (barWidth + barGutter)), (halfHeight - (halfHeight * (bar / 100))), barWidth, (halfHeight * (bar / 100)));
+
+                    // Bottom part of the bars
+                    canvasContext.fillRect((index * (barWidth + barGutter)), halfHeight, barWidth, (halfHeight * (bar / 100)));
+                });
+
+                drawing = false;
+            });
+        }
+    }
+
+    ipcRenderer.on('SCR:audio-buffer', (event, data) => {
+        //todo
+        /*var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var myArrayBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 3, audioCtx.sampleRate);
+        const buf_32 = convertBlock(data);
+        myArrayBuffer.copyToChannel(buf_32, 0);
+        var source = audioCtx.createBufferSource();
+        source.buffer = myArrayBuffer;
+        source.connect(audioCtx.destination);*/
+        // source.start(); //work and just dont start
+        canvas = document.querySelector('canvas');
+        canvasContext = canvas.getContext('2d');
+
+        // Set the dimensions
+        width = canvas.offsetWidth;
+        height = canvas.offsetHeight;
+        halfHeight = height / 2;
+
+        // Set the size of the canvas context to the size of the canvas element
+        canvasContext.canvas.width = width;
+        canvasContext.canvas.height = height;
+        // Get the users microphone audio.
+
+        const buf_32 = convertBlock(data);
+        console.log(buf_32)
+        bars.push(getAverageVolume(data));
+        renderBars(bars);
+        /*canvas = document.querySelector('canvas');
+        canvasContext = canvas.getContext('2d');
+        var begin = 0
+        var end = myArrayBuffer.duration;
+
+        var start = begin;
+        var finish = end;
+        // Set the dimensions
+        width = canvas.offsetWidth;
+        height = canvas.offsetHeight;
+        halfHeight = height / 2;
+
+        // Set the size of the canvas context to the size of the canvas element
+        canvasContext.canvas.width = width;
+        canvasContext.canvas.height = height;
+        const rawDataPoint = myArrayBuffer.getChannelData(0);
+        var centerX = canvas.clientHeight / 2
+        var width = canvas.clientWidth
+        var dataPoints = rawDataPoint;
+        var res = width / dataPoints.length
+        var strokeSize = res * 100;
+        if (strokeSize < 0.25) {
+            strokeSize = 0.4
+        }
+        if (strokeSize > 1.5) {
+            strokeSize = 1.5
+        }
+        canvasContext.beginPath()
+        canvasContext.lineWidth = strokeSize
+        canvasContext.fillStyle = "transparent"
+        canvasContext.lineJoin = "round"
+        canvasContext.strokeStyle = "rgb(0,0,0)"
+        canvasContext.miterLimit = 1
+
+        canvasContext.moveTo(0, centerX);
+        for (var x in dataPoints) {
+            var pt = dataPoints[x] * centerX
+            canvasContext.lineTo(res * x, centerX + pt);
+        }
+        canvasContext.stroke();*/
+    });
+
+    /* function drawFloatArray(samples, canvas) {
+         var i, n = samples.length;
+         var dur = (n / 44100 * 1000) >> 0;
+         canvas.title = 'Duration: ' + dur / 1000.0 + 's';
+
+         var width = canvas.width, height = canvas.height;
+         var ctx = canvas.getContext('2d');
+         ctx.strokeStyle = 'yellow';
+         ctx.fillStyle = '#303030';
+         ctx.fillRect(0, 0, width, height);
+         ctx.beginPath();
+         ctx.moveTo(0, height / 2);
+         for (i = 0; i < n; i++) {
+             x = ((i * width) / n);
+             y = ((samples[i] * height / 2) + height / 2);
+             ctx.lineTo(x, y);
+         }
+         ctx.stroke();
+         ctx.closePath();
+         canvas.mBuffer = samples;
+
+     }*/
+
+    /*ipcRenderer.on('SCR:audio-buffer', (event, data) => {
+        //todo
+        canvas = document.querySelector('canvas');
+        canvasContext = canvas.getContext('2d');
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var myArrayBuffer = audioCtx.createBuffer(1, data.length, 44100);
+        const buf_32 = convertBlock(data);
+        myArrayBuffer.copyFromChannel(buf_32, 0);
+        var source = audioCtx.createBufferSource();
+        source.buffer = myArrayBuffer;
+        source.connect(audioCtx.destination);
+        //source.start(); //dont start
+        var buf = myArrayBuffer.getChannelData(0);
+        var step = Math.ceil(buf.length / width);
+        var amp = height / 2;
+        for (var i = 0; i < width; i++) {
+            var min = 1.0;
+            var max = -1.0;
+            for (var j = 0; j < step; j++) {
+                var datum = buf[(i * step) + j];
+                if (datum < min)
+                    min = datum;
+                if (datum > max)
+                    max = datum;
+            }
+            console.log(i, (1 + min) * amp, 1, Math.max(1, (max - min) * amp));
+            canvasContext.fillRect(i, (1 + min) * amp, 1, Math.max(1, (max - min) * amp));
+        }
+    });*/
+
+    //using frontend mic to draw
+    function record() {
+        ipcRenderer.send('SRC:record', true)
+        // Get the canvas element and context
+       /* canvas = document.querySelector('canvas');
+        canvasContext = canvas.getContext('2d');
+
+        // Set the dimensions
+        width = canvas.offsetWidth;
+        height = canvas.offsetHeight;
+        halfHeight = height / 2;
+
+        // Set the size of the canvas context to the size of the canvas element
+        canvasContext.canvas.width = width;
+        canvasContext.canvas.height = height;
+        // Get the users microphone audio.
+        navigator.mediaDevices.getUserMedia({
+            audio: true
+        }).then(stream => {
+            // Create the audio nodes
+            input = audioContext.createMediaStreamSource(stream);
+            analyser = audioContext.createAnalyser();
+            scriptProcessor = audioContext.createScriptProcessor();
+
+            analyser.smoothingTimeConstant = 0.3;
+            analyser.fftSize = 2048;
+
+            // Connect the audio nodes
+            input.connect(analyser);
+            analyser.connect(scriptProcessor);
+            scriptProcessor.connect(audioContext.destination);
+
+            // Add an event handler
+            scriptProcessor.onaudioprocess = processInput;
+
+            setTimeout(() => {
+                stream.getTracks()[0].stop();
+                scriptProcessor.onaudioprocess = null;
+            }, 3000)
+        }, error => {
+            // Something went wrong, or the browser does not support getUserMedia
+        });*/
+    }
+
+    ipcRenderer.on('SCR:read-comm', (event, data) => {
+        console.log('read data', data);
+        document.getElementById('data').innerHTML = `<br/> ${data}`
+    });
+
+    function setOps() {
+        var form = document.getElementById("test"); //to get param_func
+        let toIpc = {};
+        const func_param = form.elements['type'].value;
+        switch (func_param) {
+            case '3':
+            case '7':
+            case '9':
+                const opsValue = document.getElementById('ops').value;
+                toIpc = {
+                    ops: func_param,
+                    value: opsValue
+                };
+                break;
+            case '6':
+                let fullFirstHex = '';
+                const mode = form.elements['mode'].value;
+                const battery = form.elements['battery'].value;
+                const hs = form.elements['hd'].value;
+                const ac = form.elements['ac'].value;
+                const rt_str = document.getElementById('ops').value;
+                const fn = form.elements['fn'].value;
+                const fs = form.elements['fs'].value;
+                const ag = form.elements['ag'].value;
+                const hbl = form.elements['hbl'].value;
+                if (mode === '10') {
+                    const recordingTimeout = (parseInt(rt_str) / 2).toString(2).padStart(6, '0');
+                    console.log(recordingTimeout)
+                    fullFirstHex = mode + recordingTimeout;
+                } else {
+                    fullFirstHex = mode + battery + hs + ac;
+                }
+
+                const fullSecondHex = fn + fs + ag + hbl;
+                console.log(typeof (fullSecondHex))
+                if (fullSecondHex === '') {
+                    console.log('hey');
+                    toIpc = {
+                        ops: func_param, //TODO:  im thinking to send just value instead of full hexstring to ipc. Value to ipcMain and processes there
+                        value: {firstByte: parseInt(fullFirstHex, 2).toString(16)}
+                    }
+                } else {
+                    toIpc = {
+                        ops: func_param, //TODO:  im thinking to send just value instead of full hexstring to ipc. Value to ipcMain and processes there
+                        value: {
+                            firstByte: parseInt(fullFirstHex, 2).toString(16),
+                            secondByte: parseInt(fullSecondHex, 2).toString(16)
+                        }
+                    }
+                }
+
+                break;
+
+        }
+        console.log('toIPC', toIpc)
+        ipcRenderer.send('SRC:set-ops', toIpc)
+    }
+
+    function getOps() {
+        var form = document.getElementById("test");
+        const value = form.elements['type'].value;
+        ipcRenderer.send('SRC:get-ops', value);
+    }
+
+
+    /*   ipcRenderer.on('SCR:read-audio-buffer', (event, data) => {
+           let context = new AudioContext();
+           let arrayBuffer = new ArrayBuffer(data.length);
+           let buffer32 = Float32Array.from(data);
+           var bufferView = new Uint8Array(arrayBuffer);
+           for (i = 0; i < data.length; i++) {
+               bufferView[i] = data[i];
+           }
+           let buffer = context.createBuffer(1, data.length, 44100);
+           for (var channel = 0; channel < 1; channel++) {
+               // This gives us the actual ArrayBuffer that contains the data
+               var nowBuffering = buffer.getChannelData(channel);
+               for (var i = 0; i < data.length; i++) {
+                   // Math.random() is in [0; 1.0]
+                   // audio needs to be in [-1.0; 1.0]
+                   nowBuffering[i] = data.length[i];
+               }
+           buffer.copyToChannel(buffer32, 0, 0); //check the buffer32 is two dimensional array first should be in between -1/1, else it will blast the speaker
+           var source = context.createBufferSource();
+           source.buffer = buffer;
+           //console.log(source.buffer.getChannelData(0));
+           // source.connect(context.destination); //not playing atm
+           // source.start();
+           let canvas = document.getElementById('main_wave_component'),
+               width = canvas.width,
+               height = canvas.height,
+               ctx = canvas.getContext('2d'),
+               step = Math.ceil(data.length / width),
+               amp = 300;
+           ctx.beginPath();
+           ctx.moveTo(0, height / 2 + data[0]);
+           for (var i = 0; i < width; i++) {
+               ctx.lineTo(i, height / 2 + data[step * i] * amp);
+           }
+           ctx.closePath();
+           ctx.stroke();
+
+                   let context = new AudioContext();
+                   let arrayBuffer = new ArrayBuffer(data.length);
+                   var bufferView = new Uint8Array(arrayBuffer);
+                   for (i = 0; i < data.length; i++) {
+                       bufferView[i] = data[i];
+                   }
+                   console.log(arrayBuffer)
+                   let buf;
+                   context.decodeAudioData(arrayBuffer).then((buffer) => {
+                       console.log(buffer);
+                       buf = buffer;
+                   });
+
+                   function play() {
+                       // Create a source node from the buffer
+                       var source = context.createBufferSource();
+                       source.buffer = buf;
+                       // Connect to the final output node (the speakers)
+                       source.connect(context.destination);
+                       // Play immediately
+                       source.start(0);
+                   }
+
+           // read from the audio file I think
+            let context = new AudioContext()
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "../test.wav", true);
+            xhr.responseType = "arraybuffer";
+            xhr.send();
+            xhr.onload = function() {
+                console.log(xhr)
+                context.decodeAudioData(xhr.response, function onSuccess(decodedBuffer) {
+                     // playSound(decodedBuffer)
+                    // Decoding was successful, do something useful with the audio buffer
+                }, function onFailure() {
+                    alert("Decoding the audio buffer failed");
+                });
+            };
+
+
+           function playSound(buffer) {
+               var source = context.createBufferSource(); // creates a sound source
+               source.buffer = buffer;                    // tell the source which sound to play
+               source.connect(context.destination);       // connect the source to the context's destination (the speakers)
+               source.start();                           // play the source now
+                                                          // note: on older systems, may have to use deprecated noteOn(time);
+           }
+       }) */
+</script>
+</body>
+</html>

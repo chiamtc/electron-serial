@@ -1,0 +1,6 @@
+*.wav
+dist
+node_modules
+build
+electron-dist
+stage
