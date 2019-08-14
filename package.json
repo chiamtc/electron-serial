@@ -1,8 +1,7 @@
 {
-  "name": "stethee-desktop",
+  "name": "electron-serial",
   "version": "1.0.0",
-  "license": "ISC",
-  "author": "Khoa Tran",
+  "author": "TC",
   "repository": {
     "type": "git",
     "url": "git://github.com/chiamtc/electron-serial.git"
