@@ -1,11 +1,3 @@
-/**
- * @Author: Khoa Tran <Sun>
- * @Date:   2017-12-03T18:46:56+10:00
- * @Email:  khoa@medic8health.com
- * @Filename: webpack.config.js
- * @Last modified by:   Sun
- * @Last modified time: 2017-12-05T09:59:15+10:00
- */
 
 
 require('dotenv').config({path: '.env-prod'})
@@ -26,7 +18,7 @@ fs.readdirSync('node_modules')
         nodeModules[mod] = 'commonjs ' + mod;
     });
 
-const AppName = "Stethee Vet";
+const AppName = "ele";
 
 module.exports = {
     //externals: nodeModules,
